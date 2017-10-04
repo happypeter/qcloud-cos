@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
   res.send('API running...')
 })
 
+router.post('/auth', bucket.auth)
 router.get('/bucket', bucket.getBucket)
 
 

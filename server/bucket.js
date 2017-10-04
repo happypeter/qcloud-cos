@@ -12,3 +12,22 @@ exports.getBucket = (req, res) => {
     }
   })
 }
+
+
+exports.auth = (req, res) => {
+  // console.log(req.body.method);
+  // console.log(req.body.pathname);
+  const params = {
+    AppId: `${config.AppId}`,
+    SecretId: `${config.SecretId}`,
+    SecretKey: `${config.SecretKey}`,
+    Method: req.body.method,
+    Key: req.body.pathname
+  }
+
+  const cos = new COS(params)
+
+  const Authorization = cos.getAuth(params)
+  // console.log(Authorization)
+  res.status(200).json(Authorization)
+}
