@@ -1,0 +1,19 @@
+{
+  "name": "server-tmp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "cos-nodejs-sdk-v5": "^2.0.12",
+    "express": "^4.16.1",
+    "morgan": "^1.9.0"
+  }
+}
