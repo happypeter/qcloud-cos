@@ -29,34 +29,67 @@ const cos = new COS({
 
 // js-sdk 配置部分至此
 
-//antd 拖拽部分
-const onChange = (info) => {
-  if (info.file.status !== 'uploading') {
-    // 由于 dragger 的 action 一项没有传，所以最终的
-    // info.file.status 的值会为 error 。
-    // onChange 一共会被执行三次，前两次时 status 都是 uploading
-    const file = info.file.originFileObj
-    const params = {
-      Bucket: Settings.Bucket,
-      Region: Settings.Region,
-      Key: file.name,
-      Body: file,
-    }
-    cos.sliceUploadFile(params, function(err, data) {
-      if(err) {
-        message.info(`${file.name} 上传失败`)
-      } else {
-        message.success(`${file.name} 成功上传`)
-      }
-    })
-  }
-}
 
 class UploaderContainer extends Component {
+  state = {
+    progressBars: []
+  }
+
+  onChange = (info) => {
+    if (info.file.status !== 'uploading') {
+      const file = info.file.originFileObj
+
+      let progressBar = {
+             percent: 0,
+             name: file.name,
+             status: 'normal',
+             uid: file.uid
+           }
+      this.setState({
+        progressBars: [...this.state.progressBars, progressBar]
+      })
+
+      const params = {
+        Bucket: Settings.Bucket,
+        Region: Settings.Region,
+        Key: file.name,
+        Body: file,
+        onProgress: progressData => {
+          const percent = progressData.percent*100
+          this.setState({
+            progressBars: this.state.progressBars.map(t => {
+              if (t.uid === file.uid) {
+                const status = percent < 100 ? 'active' : 'success'
+                return { ...t, status, percent}
+              }
+              return t
+            })
+          })
+        }
+      }
+      cos.sliceUploadFile(params, (err, data) => {
+        if (err) {
+          this.setState({
+            progressBars: this.state.progressBars.map(t => {
+              if (t.uid === file.uid) {
+                const status =  'exception'
+                return { ...t, status}
+              }
+              return t
+            })
+          })
+          message.info(`${file.name} 上传失败`)
+        } else {
+          message.success(`${file.name} 成功上传`)
+        }
+      })
+    }
+  }
   render () {
+    const { progressBars } = this.state
     return (
       <div>
-        <Uploader onChange={onChange} />
+        <Uploader onChange={this.onChange} progressBars={progressBars}/>
       </div>
     )
   }

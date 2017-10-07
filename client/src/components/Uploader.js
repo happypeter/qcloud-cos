@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Upload, Icon } from 'antd'
+import { Upload, Icon, Progress } from 'antd'
 const Dragger = Upload.Dragger
 
 
@@ -20,6 +20,18 @@ class Uploader extends Component {
           </p>
           <p className="ant-upload-text">拖拽到此区域上传</p>
         </Dragger>
+        {
+          this.props.progressBars.map(
+            t => {
+              return (
+                <div key={t.uid}>
+                  {t.name}
+                  <Progress percent={t.percent} status={t.status} />
+                </div>
+              )
+            }
+          )
+        }
       </div>
     )
   }
