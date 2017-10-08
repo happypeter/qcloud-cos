@@ -11,6 +11,10 @@ class UploaderContainer extends Component {
 
   onChange = (info) => {
     if (info.file.status !== 'uploading') {
+      const { selectedDir } = this.props
+      if (!selectedDir) {
+        return message.error('请先选择文件夹')
+      }
       const file = info.file.originFileObj
 
       let progressBar = {
@@ -26,7 +30,7 @@ class UploaderContainer extends Component {
       const params = {
         Bucket: Settings.Bucket,
         Region: Settings.Region,
-        Key: file.name,
+        Key: `${selectedDir}/${file.name}`,
         Body: file,
         onProgress: progressData => {
           const percent = progressData.percent*100
