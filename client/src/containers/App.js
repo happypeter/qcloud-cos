@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UploaderContainer from './UploaderContainer'
 import DirSetterContainer from './DirSetterContainer'
+import FileTableContainer from './FileTableContainer'
 
 class App extends Component {
   state = {
@@ -18,6 +19,7 @@ class App extends Component {
       <div>
         <DirSetterContainer selectDir={this.selectDir}/>
         <UploaderContainer selectedDir={this.state.selectedDir}/>
+        <FileTableContainer />
       </div>
     )
   }
