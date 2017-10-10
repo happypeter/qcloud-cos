@@ -17,9 +17,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <DirSetterContainer selectDir={this.selectDir}/>
-        <UploaderContainer selectedDir={this.state.selectedDir}/>
-        <FileTableContainer />
+        <DirSetterContainer selectDir={this.selectDir} />
+        <UploaderContainer selectedDir={this.state.selectedDir} />
+        <FileTableContainer selectedDir={this.state.selectedDir} />
       </div>
     )
   }

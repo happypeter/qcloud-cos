@@ -7,7 +7,7 @@ import cos from '../lib/qcloud'
 
 class FileTableContainer extends Component {
   state = {
-    files: []
+    paths: []
   }
 
   handleDelete = (record) => {
@@ -35,18 +35,24 @@ class FileTableContainer extends Component {
   componentDidMount () {
     axios.get(Settings.bucketUrl).then(
       res => {
+        const paths = res.data.Contents
         this.setState({
-          files: res.data.Contents
+          paths
         })
       }
     )
   }
   render () {
+    const paths = this.state.paths.filter(
+      t => {
+        return t.Key.split('/')[0] === this.props.selectedDir
+      }
+    )
     return (
       <div>
         <FileTable
           onDelete={this.handleDelete}
-          files={this.state.files}/>
+          paths={paths}/>
       </div>
     )
   }

@@ -48,7 +48,10 @@ class FileTable extends Component {
     }
   ]
   render () {
-    const { files } = this.props
+    const { paths } = this.props
+    const files = paths.map( t => {
+      return { ...t, Key: t.Key.split('/')[0] }
+    })
     return (
       <div className='file-table'>
         <Table columns={this.tableColumns}
