@@ -23,12 +23,12 @@ class FileTable extends Component {
 
   tableColumns = [
     {
-      title: '名称',
+      // title: '名称',
       dataIndex: 'Key',
       key: 'Key'
     },
     {
-      title: '更新时间',
+      // title: '更新时间',
       dataIndex: 'LastModified',
       key: 'LastModified',
       render: (text) => {
@@ -36,7 +36,7 @@ class FileTable extends Component {
       }
     },
     {
-      title: '操作',
+      // title: '操作',
       render: record => {
         return (
           <Button
@@ -50,7 +50,7 @@ class FileTable extends Component {
   render () {
     const { paths } = this.props
     const files = paths.map( t => {
-      return { ...t, Key: t.Key.split('/')[0] }
+      return { ...t, Key: t.Key.split('/')[1] }
     })
     return (
       <div className='file-table'>
