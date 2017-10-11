@@ -3,6 +3,9 @@ import UploaderContainer from './UploaderContainer'
 import DirSetterContainer from './DirSetterContainer'
 import FileTableContainer from './FileTableContainer'
 import axios from 'axios'
+import { Tabs } from 'antd';
+const TabPane = Tabs.TabPane;
+
 
 
 class App extends Component {
@@ -11,12 +14,7 @@ class App extends Component {
     dirNames: []
   }
 
-  selectDir = (dirName) => {
-    console.log('selectDir', dirName)
-    this.setState({
-      selectedDir: dirName
-    })
-  }
+
 
 
   componentDidMount () {
@@ -43,15 +41,40 @@ class App extends Component {
     }
   }
 
+  handleTabClick = (key) => {
+
+    this.setState({
+      selectedDir: this.state.dirNames[key]
+    })
+  }
+
   render() {
+    const { dirNames } = this.state
     return (
       <div>
         <DirSetterContainer
           appendDirName={this.appendDirName}
-          dirNames={this.state.dirNames}
-          selectDir={this.selectDir} />
-        <UploaderContainer selectedDir={this.state.selectedDir} />
-        <FileTableContainer selectedDir={this.state.selectedDir} />
+          dirNames={dirNames} />
+
+        <Tabs
+          defaultActiveKey="1"
+          tabPosition={'top'}
+          onTabClick={this.handleTabClick}
+        >
+          {
+            dirNames.map(
+              (t, i) => (
+                <TabPane tab={t} key={i}>
+                          <UploaderContainer selectedDir={this.state.selectedDir} />
+                          <FileTableContainer selectedDir={this.state.selectedDir} />
+                </TabPane>
+              )
+            )
+          }
+        </Tabs>
+
+
+
       </div>
     )
   }

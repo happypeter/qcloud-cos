@@ -42,32 +42,14 @@ class DirSetter extends Component {
   }
 
   render () {
-    const { dirNames } = this.props
-    const { selectedDir } = this.state
-    const dirList = dirNames.map( t => {
-      return (
-        <div className={selectedDir === t ? 'active': 'normal'}
-          onClick={() => this.handleClick(t) }
-          key={t}>
-          {t}
-        </div>
-      )
-    })
-    let dirNameStr = (<div className='dir'>
-    视频会被上传到 {selectedDir}/ 中
-    </div>)
     return (
       <div className='dir-setter'>
-        <div className='dir-list'>
-          {dirList}
-        </div>
         <input value={this.state.inputDir}
         onChange={this.handleChange} />
         <button onClick={this.submitDir}>添加新文件夹</button>
         <div className='input-requirement'>
         可用数字、中英文、下划线组合，最多20个字符
         </div>
-        {selectedDir && dirNameStr}
       </div>
     )
   }

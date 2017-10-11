@@ -24,7 +24,7 @@ class FileTableContainer extends Component {
       } else {
         message.success(`已删除：${record.Key}`)
         this.setState({
-          files: this.state.files.filter(
+          paths: this.state.paths.filter(
             t => t.ETag !== record.ETag
           )
         })

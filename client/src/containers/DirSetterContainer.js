@@ -7,9 +7,7 @@ class DirSetterContainer extends Component {
     const { dirNames } = this.props
     return (
       <div className='DirSetterContainer'>
-        <DirSetter dirNames={dirNames}
-          selectDir={this.props.selectDir}
-          appendDirName={this.props.appendDirName}
+        <DirSetter appendDirName={this.props.appendDirName}
         />
       </div>
     )
