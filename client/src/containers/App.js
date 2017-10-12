@@ -11,22 +11,24 @@ const TabPane = Tabs.TabPane;
 class App extends Component {
   state = {
     selectedDir: '',
-    dirNames: []
+    dirNames: [],
+    defaultActiveKey: '0'
   }
-
-
 
 
   componentDidMount () {
     axios.get(`http://localhost:3008/bucket`).then(
       res => {
         const { Contents } = res.data
+        const dirNames = Contents.reduce((arr, t) => {
+          const dirName = t.Key.split('/')[0]
+          if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
+          return arr
+        }, [])
+        const selectedDir = dirNames[this.state.defaultActiveKey]
         this.setState({
-          dirNames: Contents.reduce((arr, t) => {
-            const dirName = t.Key.split('/')[0]
-            if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
-            return arr
-          }, [])
+          dirNames,
+          selectedDir
         })
       }
     )
@@ -49,7 +51,7 @@ class App extends Component {
   }
 
   render() {
-    const { dirNames } = this.state
+    const { dirNames, defaultActiveKey } = this.state
     return (
       <div>
         <DirSetterContainer
@@ -57,7 +59,7 @@ class App extends Component {
           dirNames={dirNames} />
 
         <Tabs
-          defaultActiveKey="1"
+          defaultActiveKey={defaultActiveKey}
           tabPosition={'top'}
           onTabClick={this.handleTabClick}
         >
