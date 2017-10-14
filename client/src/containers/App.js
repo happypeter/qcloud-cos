@@ -5,51 +5,47 @@ import FileTableContainer from './FileTableContainer'
 import axios from 'axios'
 import { Tabs } from 'antd';
 import { connect } from 'react-redux'
-import { selectDir, setDirNames } from '../redux/actions'
+import {
+  selectDir,
+  setDirNames,
+  addDirName,
+  setActiveKey
+} from '../redux/actions'
 const TabPane = Tabs.TabPane;
 
 
 
 class App extends Component {
-  state = {
-    activeKey: '1'
-  }
-
 
   componentDidMount () {
     axios.get(`http://localhost:3008/bucket`).then(
       res => {
         const { Contents } = res.data
         this.props.setDirNames(Contents)
-        const selectedDir = this.props.dirNames[this.state.activeKey]
+        const selectedDir = this.props.dirNames[this.props.activeKey]
         this.props.selectDir(selectedDir)
       }
     )
   }
 
   appendDirName = (dirName) => {
-    const { dirNames } = this.state
+    const { dirNames } = this.props
     if (dirNames.indexOf(dirName) === -1) {
-      this.setState({
-        dirNames: [...dirNames, dirName]
-      })
+      this.props.addDirName(dirName)
     } else {
       console.log('文件夹名已经存在！')
     }
   }
 
   handleTabClick = (key) => {
-    const selectedDir =  this.state.dirNames[key]
+    const selectedDir =  this.props.dirNames[key]
     this.props.selectDir(selectedDir)
-    this.setState({
-      activeKey: key
-    })
+    this.props.setActiveKey(key)
   }
 
   render() {
-    const { activeKey } = this.state
-    const { dirNames } = this.props
-    console.log('selectedDir+++', this.props.selectedDir)
+    const { dirNames, activeKey } = this.props
+    console.log('APP.js', activeKey)
     return (
       <div>
         <DirSetterContainer
@@ -78,7 +74,15 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir
+  selectedDir: state.selectedDir,
+  dirNames: state.dirNames,
+  activeKey: state.activeKey
 })
 
-export default connect(mapStateToProps, { selectDir, setDirNames })(App)
+export default connect(mapStateToProps,
+  {
+    selectDir,
+    setDirNames,
+    addDirName,
+    setActiveKey
+  })(App)

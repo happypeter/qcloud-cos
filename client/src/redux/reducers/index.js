@@ -1,6 +1,7 @@
 const initState = {
   selectedDir: '',
-  dirNames: []
+  dirNames: [],
+  activeKey: '0'
 }
 const rootReducer = (state=initState, action) => {
   switch (action.type) {
@@ -18,6 +19,22 @@ const rootReducer = (state=initState, action) => {
          ...state,
          dirNames
        }
+    case 'ADD_DIRNAME':
+      const { dirName } = action
+      console.log('ADD_DIRNAME', dirName)
+      return {
+        ...state,
+        dirNames: [...state.dirNames, dirName],
+        selectedDir: dirName,
+        activeKey: state.dirNames.length.toString()
+      }
+    case 'SET_ACTIVE_KEY':
+      const { activeKey } = action
+      console.log('SET_ACTIVE_KEY', activeKey)
+      return {
+        ...state,
+        activeKey
+      }
     default:
       return state
   }

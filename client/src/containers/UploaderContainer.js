@@ -66,6 +66,7 @@ class UploaderContainer extends Component {
   }
   render () {
     const { progressBars } = this.state
+    console.log('UploaderContainer', this.props.selectedDir)
     return (
       <div>
         <Uploader onChange={this.onChange} progressBars={progressBars}/>
@@ -75,7 +76,7 @@ class UploaderContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  state: state.selectedDir
+  selectedDir: state.selectedDir
 })
 
 export default connect(mapStateToProps)(UploaderContainer)

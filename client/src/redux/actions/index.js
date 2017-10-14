@@ -14,3 +14,21 @@ export const setDirNames = (contents) => {
     dispatch({ type: 'LOAD_DIRNAMES', dirNames })
   }
 }
+
+export const addDirName = (dirName) => {
+  return dispatch => {
+    dispatch({
+      type: 'ADD_DIRNAME',
+      dirName
+    })
+  }
+}
+
+export const setActiveKey = (activeKey) => {
+  return dispatch => {
+    dispatch({
+      type: 'SET_ACTIVE_KEY',
+      activeKey
+    })
+  }
+}
