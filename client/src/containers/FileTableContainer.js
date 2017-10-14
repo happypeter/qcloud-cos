@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import FileTable from '../components/FileTable/FileTable'
 import axios from 'axios'
 import Settings from '../settings'
-import { message } from 'antd'
 import cos from '../lib/qcloud'
 
 class FileTableContainer extends Component {
@@ -13,23 +12,26 @@ class FileTableContainer extends Component {
   handleDelete = (record) => {
     console.log('OK', record)
     const delParams = {
-      Bucket: 'hq123',
-      Region: 'ap-chengdu',                     /* 必须 */
+      Bucket: Settings.Bucket,
+      Region: Settings.Region,                     /* 必须 */
       Key : record.Key                                  /* 必须 */
     }
-
-    cos.deleteObject(delParams, (err, data) => {
-      if(err) {
-        message.error(`${record.Key} 删除失败`)
-      } else {
-        message.success(`已删除：${record.Key}`)
-        this.setState({
-          paths: this.state.paths.filter(
-            t => t.ETag !== record.ETag
-          )
-        })
-       }
-     })
+    return new Promise(
+      (resolve, reject) => {
+        cos.deleteObject(delParams, (err, data) => {
+          if(err) {
+            reject(record.Key)
+          } else {
+            this.setState({
+              paths: this.state.paths.filter(
+                t => t.ETag !== record.ETag
+              )
+            })
+            resolve(record.Key)
+           }
+         })
+      }
+    )
   }
 
   componentDidMount () {

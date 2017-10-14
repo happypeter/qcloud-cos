@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Table, Button, Modal } from 'antd'
+import { Table, Button, Modal, message } from 'antd'
 import moment from 'moment'
 const confirm = Modal.confirm
-
 
 class FileTable extends Component {
   delete = (record) => {
@@ -13,7 +12,11 @@ class FileTable extends Component {
       okType: 'danger',
       cancelText: 'No',
       onOk: () => {
-       this.props.onDelete(record)
+        this.props.onDelete(record).then(
+          key => message.success(`已删除：${key}`)
+        ).catch(
+          key => message.error(`${key} 删除失败`)
+        )
       },
       onCancel: () => {
         console.log('Cancel')
