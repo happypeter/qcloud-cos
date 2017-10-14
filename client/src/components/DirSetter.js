@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './dir-setter.css'
 import { message } from 'antd'
+import { connect } from 'react-redux'
 
 class DirSetter extends Component {
 
@@ -42,6 +43,7 @@ class DirSetter extends Component {
   }
 
   render () {
+    console.log('this.props.selectedDir', this.props.selectedDir)
     return (
       <div className='dir-setter'>
         <input value={this.state.inputDir}
@@ -55,4 +57,8 @@ class DirSetter extends Component {
   }
 }
 
-export default DirSetter
+const mapStateToProps = (state) => ({
+  selectedDir: state.selectedDir
+})
+
+export default connect(mapStateToProps)(DirSetter)

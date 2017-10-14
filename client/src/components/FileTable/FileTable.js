@@ -5,8 +5,6 @@ const confirm = Modal.confirm
 
 class FileTable extends Component {
   delete = (record) => {
-    console.log('444444', this.props.paths)
-    console.log('555555', record)
     confirm({
       title: `确认删除 ${record.Key} ？`,
       content: '删除之后无法恢复',
