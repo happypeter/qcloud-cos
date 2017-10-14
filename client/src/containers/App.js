@@ -4,15 +4,15 @@ import DirSetterContainer from './DirSetterContainer'
 import FileTableContainer from './FileTableContainer'
 import axios from 'axios'
 import { Tabs } from 'antd';
+import { connect } from 'react-redux'
+import { selectDir, setDirNames } from '../redux/actions'
 const TabPane = Tabs.TabPane;
 
 
 
 class App extends Component {
   state = {
-    selectedDir: '',
-    dirNames: [],
-    defaultActiveKey: '0'
+    activeKey: '1'
   }
 
 
@@ -20,16 +20,9 @@ class App extends Component {
     axios.get(`http://localhost:3008/bucket`).then(
       res => {
         const { Contents } = res.data
-        const dirNames = Contents.reduce((arr, t) => {
-          const dirName = t.Key.split('/')[0]
-          if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
-          return arr
-        }, [])
-        const selectedDir = dirNames[this.state.defaultActiveKey]
-        this.setState({
-          dirNames,
-          selectedDir
-        })
+        this.props.setDirNames(Contents)
+        const selectedDir = this.props.dirNames[this.state.activeKey]
+        this.props.selectDir(selectedDir)
       }
     )
   }
@@ -40,18 +33,23 @@ class App extends Component {
       this.setState({
         dirNames: [...dirNames, dirName]
       })
+    } else {
+      console.log('文件夹名已经存在！')
     }
   }
 
   handleTabClick = (key) => {
-
+    const selectedDir =  this.state.dirNames[key]
+    this.props.selectDir(selectedDir)
     this.setState({
-      selectedDir: this.state.dirNames[key]
+      activeKey: key
     })
   }
 
   render() {
-    const { dirNames, defaultActiveKey } = this.state
+    const { activeKey } = this.state
+    const { dirNames } = this.props
+    console.log('selectedDir+++', this.props.selectedDir)
     return (
       <div>
         <DirSetterContainer
@@ -59,7 +57,7 @@ class App extends Component {
           dirNames={dirNames} />
 
         <Tabs
-          defaultActiveKey={defaultActiveKey}
+          activeKey={activeKey}
           tabPosition={'top'}
           onTabClick={this.handleTabClick}
         >
@@ -67,19 +65,20 @@ class App extends Component {
             dirNames.map(
               (t, i) => (
                 <TabPane tab={t} key={i}>
-                          <UploaderContainer selectedDir={this.state.selectedDir} />
-                          <FileTableContainer selectedDir={this.state.selectedDir} />
+                          <UploaderContainer />
+                          <FileTableContainer />
                 </TabPane>
               )
             )
           }
         </Tabs>
-
-
-
       </div>
     )
   }
 }
 
-export default App
+const mapStateToProps = (state) => ({
+  selectedDir: state.selectedDir
+})
+
+export default connect(mapStateToProps, { selectDir, setDirNames })(App)

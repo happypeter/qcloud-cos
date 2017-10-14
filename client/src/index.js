@@ -5,11 +5,9 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-const toy = (
+
+ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>
-)
-
-
-ReactDOM.render(toy, document.getElementById('root'))
+  , document.getElementById('root'))

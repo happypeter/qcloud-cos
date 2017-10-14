@@ -3,6 +3,7 @@ import cos from '../lib/qcloud'
 import { message } from 'antd'
 import Uploader from '../components/Uploader'
 import Settings from '../settings'
+import { connect } from 'react-redux'
 
 class UploaderContainer extends Component {
   state = {
@@ -73,4 +74,8 @@ class UploaderContainer extends Component {
   }
 }
 
-export default UploaderContainer
+const mapStateToProps = (state) => ({
+  state: state.selectedDir
+})
+
+export default connect(mapStateToProps)(UploaderContainer)

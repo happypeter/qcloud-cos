@@ -3,6 +3,7 @@ import FileTable from '../components/FileTable/FileTable'
 import axios from 'axios'
 import Settings from '../settings'
 import cos from '../lib/qcloud'
+import { connect } from 'react-redux'
 
 class FileTableContainer extends Component {
   state = {
@@ -10,7 +11,6 @@ class FileTableContainer extends Component {
   }
 
   handleDelete = (record) => {
-    console.log('OK', record)
     const delParams = {
       Bucket: Settings.Bucket,
       Region: Settings.Region,                     /* 必须 */
@@ -60,4 +60,8 @@ class FileTableContainer extends Component {
   }
 }
 
-export default FileTableContainer
+const mapStateToProps = (state) => ({
+  selectedDir: state.selectedDir
+})
+
+export default connect(mapStateToProps)(FileTableContainer)
