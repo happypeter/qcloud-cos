@@ -5,6 +5,8 @@ const confirm = Modal.confirm
 
 class FileTable extends Component {
   delete = (record) => {
+    console.log('444444', this.props.paths)
+    console.log('555555', record)
     confirm({
       title: `确认删除 ${record.Key} ？`,
       content: '删除之后无法恢复',
@@ -28,7 +30,10 @@ class FileTable extends Component {
     {
       // title: '名称',
       dataIndex: 'Key',
-      key: 'Key'
+      key: 'Key',
+      render: (text) => {
+        return <h1>{text.split('/').pop()}</h1>
+      }
     },
     {
       // title: '更新时间',
@@ -52,13 +57,11 @@ class FileTable extends Component {
   ]
   render () {
     const { paths } = this.props
-    const files = paths.map( t => {
-      return { ...t, Key: t.Key.split('/')[1] }
-    })
+
     return (
       <div className='file-table'>
         <Table columns={this.tableColumns}
-          dataSource={files}
+          dataSource={paths}
           rowKey={item => item.ETag}
           />
       </div>
