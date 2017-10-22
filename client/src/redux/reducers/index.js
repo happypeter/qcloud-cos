@@ -12,6 +12,15 @@ const rootReducer = (state=initState, action) => {
         ...state,
         allFiles
       }
+    case 'REMOVE_FROM_ALL_FILES':
+      const { key } = action
+      const newAllFiles = state.allFiles.filter(
+        t => t.Key !== key
+      )
+      return {
+        ...state,
+        allFiles: newAllFiles
+      }
     case 'SELETCT_DIR':
       const { selectedDir } = action
       console.log('selectedDir', selectedDir)

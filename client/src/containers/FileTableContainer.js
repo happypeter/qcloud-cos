@@ -3,12 +3,9 @@ import FileTable from '../components/FileTable/FileTable'
 import Settings from '../settings'
 import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
+import { removeFromAllFiles } from '../redux/actions'
 
 class FileTableContainer extends Component {
-  state = {
-    paths: []
-  }
-
   handleDelete = (record) => {
     const delParams = {
       Bucket: Settings.Bucket,
@@ -21,11 +18,7 @@ class FileTableContainer extends Component {
           if(err) {
             reject(record.Key)
           } else {
-            this.setState({
-              paths: this.state.paths.filter(
-                t => t.ETag !== record.ETag
-              )
-            })
+            this.props.removeFromAllFiles(record.Key)
             resolve(record.Key)
            }
          })
@@ -55,4 +48,7 @@ const mapStateToProps = (state) => ({
   allFiles: state.allFiles
 })
 
-export default connect(mapStateToProps)(FileTableContainer)
+export default connect(mapStateToProps, {
+  removeFromAllFiles
+}
+)(FileTableContainer)

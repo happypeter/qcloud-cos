@@ -31,6 +31,15 @@ export const loadAllFiles = () => {
   }
 }
 
+export const removeFromAllFiles = (key) => {
+  return dispatch => {
+    dispatch({
+      type: 'REMOVE_FROM_ALL_FILES',
+      key
+    })
+  }
+}
+
 export const addDirName = (dirName) => {
   return dispatch => {
     dispatch({
