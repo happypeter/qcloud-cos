@@ -5,6 +5,7 @@ const initState = {
   allFiles: []
 }
 const rootReducer = (state=initState, action) => {
+  let newAllFiles
   switch (action.type) {
     case 'LOAD_ALL_FILES':
       const { allFiles } = action
@@ -13,9 +14,8 @@ const rootReducer = (state=initState, action) => {
         allFiles
       }
     case 'REMOVE_FROM_ALL_FILES':
-      const { key } = action
-      const newAllFiles = state.allFiles.filter(
-        t => t.Key !== key
+      newAllFiles = state.allFiles.filter(
+        t => t.Key !== action.key
       )
       return {
         ...state,

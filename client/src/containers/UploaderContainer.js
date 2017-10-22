@@ -4,6 +4,7 @@ import { message } from 'antd'
 import Uploader from '../components/Uploader'
 import Settings from '../settings'
 import { connect } from 'react-redux'
+import { loadAllFiles } from '../redux/actions'
 
 class UploaderContainer extends Component {
   state = {
@@ -30,16 +31,16 @@ class UploaderContainer extends Component {
         progressBars: [...this.state.progressBars, progressBar]
       })
 
+      const key = `${selectedDir}/${file.name}`
       const params = {
         Bucket: Settings.Bucket,
         Region: Settings.Region,
-        Key: `${selectedDir}/${file.name}`,
+        Key: key,
         Body: file,
         onProgress: progressData => {
           const percent = progressData.percent*100
           if (percent === 100) {
             console.log('上传完毕！')
-            // 显示文件到 table 中
             this.setState({
               progressBars: []
             })
@@ -69,6 +70,7 @@ class UploaderContainer extends Component {
           message.info(`${file.name} 上传失败`)
         } else {
           message.success(`${file.name} 成功上传`)
+          this.props.loadAllFiles()
         }
       })
     }
@@ -87,4 +89,6 @@ const mapStateToProps = (state) => ({
   selectedDir: state.selectedDir
 })
 
-export default connect(mapStateToProps)(UploaderContainer)
+export default connect(mapStateToProps, {
+  loadAllFiles
+})(UploaderContainer)

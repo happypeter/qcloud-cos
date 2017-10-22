@@ -24,7 +24,7 @@ export const loadAllFiles = () => {
     axios.get(Settings.bucketUrl).then(
       res => {
         const allFiles = res.data.Contents
-        console.log('allFiles', allFiles)
+        console.log('loadAllFiles++++allFiles', allFiles)
         dispatch({ type: 'LOAD_ALL_FILES', allFiles })
       }
     )
@@ -39,6 +39,7 @@ export const removeFromAllFiles = (key) => {
     })
   }
 }
+
 
 export const addDirName = (dirName) => {
   return dispatch => {
