@@ -5,6 +5,7 @@ import FileTableContainer from './FileTableContainer'
 import axios from 'axios'
 import { Tabs } from 'antd';
 import { connect } from 'react-redux'
+import { loadAllFiles } from '../redux/actions'
 import {
   selectDir,
   setDirNames,
@@ -26,6 +27,7 @@ class App extends Component {
         this.props.selectDir(selectedDir)
       }
     )
+    this.props.loadAllFiles()
   }
 
   appendDirName = (dirName) => {
@@ -84,5 +86,6 @@ export default connect(mapStateToProps,
     selectDir,
     setDirNames,
     addDirName,
-    setActiveKey
+    setActiveKey,
+    loadAllFiles
   })(App)

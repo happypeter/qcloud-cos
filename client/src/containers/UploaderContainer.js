@@ -11,6 +11,7 @@ class UploaderContainer extends Component {
   }
 
   onChange = (info) => {
+    console.log('onChange', info)
     if (info.file.status !== 'uploading') {
       const { selectedDir } = this.props
       if (!selectedDir) {
@@ -24,6 +25,7 @@ class UploaderContainer extends Component {
              status: 'normal',
              uid: file.uid
            }
+
       this.setState({
         progressBars: [...this.state.progressBars, progressBar]
       })
@@ -35,6 +37,13 @@ class UploaderContainer extends Component {
         Body: file,
         onProgress: progressData => {
           const percent = progressData.percent*100
+          if (percent === 100) {
+            console.log('上传完毕！')
+            // 显示文件到 table 中
+            this.setState({
+              progressBars: []
+            })
+          }
           this.setState({
             progressBars: this.state.progressBars.map(t => {
               if (t.uid === file.uid) {
@@ -66,7 +75,6 @@ class UploaderContainer extends Component {
   }
   render () {
     const { progressBars } = this.state
-    console.log('UploaderContainer', this.props.selectedDir)
     return (
       <div>
         <Uploader onChange={this.onChange} progressBars={progressBars}/>

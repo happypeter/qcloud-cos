@@ -1,10 +1,17 @@
 const initState = {
   selectedDir: '',
   dirNames: [],
-  activeKey: '0'
+  activeKey: '0',
+  allFiles: []
 }
 const rootReducer = (state=initState, action) => {
   switch (action.type) {
+    case 'LOAD_ALL_FILES':
+      const { allFiles } = action
+      return {
+        ...state,
+        allFiles
+      }
     case 'SELETCT_DIR':
       const { selectedDir } = action
       console.log('selectedDir', selectedDir)

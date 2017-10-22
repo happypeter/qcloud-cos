@@ -1,3 +1,7 @@
+import Settings from '../../settings'
+import axios from 'axios'
+
+
 export const selectDir = (selectedDir) => {
   return dispatch => {
     dispatch({ type: 'SELETCT_DIR', selectedDir})
@@ -12,6 +16,18 @@ export const setDirNames = (contents) => {
   }, [])
   return dispatch => {
     dispatch({ type: 'LOAD_DIRNAMES', dirNames })
+  }
+}
+
+export const loadAllFiles = () => {
+  return dispatch => {
+    axios.get(Settings.bucketUrl).then(
+      res => {
+        const allFiles = res.data.Contents
+        console.log('allFiles', allFiles)
+        dispatch({ type: 'LOAD_ALL_FILES', allFiles })
+      }
+    )
   }
 }
 

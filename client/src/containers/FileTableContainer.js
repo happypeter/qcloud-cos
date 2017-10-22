@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import FileTable from '../components/FileTable/FileTable'
-import axios from 'axios'
 import Settings from '../settings'
 import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
@@ -13,8 +12,8 @@ class FileTableContainer extends Component {
   handleDelete = (record) => {
     const delParams = {
       Bucket: Settings.Bucket,
-      Region: Settings.Region,                     /* 必须 */
-      Key : record.Key                                  /* 必须 */
+      Region: Settings.Region,
+      Key : record.Key
     }
     return new Promise(
       (resolve, reject) => {
@@ -34,18 +33,9 @@ class FileTableContainer extends Component {
     )
   }
 
-  componentDidMount () {
-    axios.get(Settings.bucketUrl).then(
-      res => {
-        const paths = res.data.Contents
-        this.setState({
-          paths
-        })
-      }
-    )
-  }
   render () {
-    const paths = this.state.paths.filter(
+    const { allFiles } = this.props
+    const currentDirFiles = allFiles.filter(
       t => {
         return t.Key.split('/')[0] === this.props.selectedDir
       }
@@ -54,14 +44,15 @@ class FileTableContainer extends Component {
       <div>
         <FileTable
           onDelete={this.handleDelete}
-          paths={paths}/>
+          currentDirFiles={currentDirFiles}/>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir
+  selectedDir: state.selectedDir,
+  allFiles: state.allFiles
 })
 
 export default connect(mapStateToProps)(FileTableContainer)

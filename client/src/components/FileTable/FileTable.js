@@ -54,17 +54,18 @@ class FileTable extends Component {
     }
   ]
   render () {
-    const { paths } = this.props
+    const { currentDirFiles } = this.props
 
     return (
       <div className='file-table'>
         <Table columns={this.tableColumns}
-          dataSource={paths}
+          dataSource={currentDirFiles}
           rowKey={item => item.ETag}
           />
       </div>
     )
   }
 }
+
 
 export default FileTable
