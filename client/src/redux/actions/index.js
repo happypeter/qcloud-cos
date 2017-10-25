@@ -44,7 +44,7 @@ export const removeFromAllFiles = (key) => {
 export const addDirName = (dirName) => {
   return dispatch => {
     dispatch({
-      type: 'ADD_DIRNAME',
+      type: 'ADD_DIR_NAME',
       dirName
     })
   }

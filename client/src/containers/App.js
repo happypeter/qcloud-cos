@@ -9,7 +9,6 @@ import { loadAllFiles } from '../redux/actions'
 import {
   selectDir,
   setDirNames,
-  addDirName,
   setActiveKey
 } from '../redux/actions'
 const TabPane = Tabs.TabPane;
@@ -30,14 +29,7 @@ class App extends Component {
     this.props.loadAllFiles()
   }
 
-  appendDirName = (dirName) => {
-    const { dirNames } = this.props
-    if (dirNames.indexOf(dirName) === -1) {
-      this.props.addDirName(dirName)
-    } else {
-      console.log('文件夹名已经存在！')
-    }
-  }
+
 
   handleTabClick = (key) => {
     const selectedDir =  this.props.dirNames[key]
@@ -50,9 +42,7 @@ class App extends Component {
     console.log('APP.js', activeKey)
     return (
       <div>
-        <DirSetterContainer
-          appendDirName={this.appendDirName}
-          dirNames={dirNames} />
+        <DirSetterContainer />
 
         <Tabs
           activeKey={activeKey}
@@ -85,7 +75,6 @@ export default connect(mapStateToProps,
   {
     selectDir,
     setDirNames,
-    addDirName,
     setActiveKey,
     loadAllFiles
   })(App)

@@ -35,9 +35,9 @@ const rootReducer = (state=initState, action) => {
          ...state,
          dirNames
        }
-    case 'ADD_DIRNAME':
+    case 'ADD_DIR_NAME':
       const { dirName } = action
-      console.log('ADD_DIRNAME', dirName)
+      console.log('ADD_DIR_NAME', dirName)
       return {
         ...state,
         dirNames: [...state.dirNames, dirName],
