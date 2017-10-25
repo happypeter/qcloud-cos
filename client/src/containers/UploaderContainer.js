@@ -39,12 +39,6 @@ class UploaderContainer extends Component {
         Body: file,
         onProgress: progressData => {
           const percent = progressData.percent*100
-          if (percent === 100) {
-            console.log('上传完毕！')
-            this.setState({
-              progressBars: []
-            })
-          }
           this.setState({
             progressBars: this.state.progressBars.map(t => {
               if (t.uid === file.uid) {

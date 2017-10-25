@@ -10,7 +10,7 @@ class DirSetterContainer extends Component {
     if (dirNames.indexOf(dirName) === -1) {
       this.props.addDirName(dirName)
     } else {
-      console.log('文件夹名已经存在！')
+      console.log('文件夹已经存在！')
     }
   }
 

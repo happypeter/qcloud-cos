@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
-import UploaderContainer from './UploaderContainer'
+import TabsContainer from './TabsContainer'
 import DirSetterContainer from './DirSetterContainer'
-import FileTableContainer from './FileTableContainer'
 import axios from 'axios'
-import { Tabs } from 'antd';
 import { connect } from 'react-redux'
 import { loadAllFiles } from '../redux/actions'
 import {
   selectDir,
-  setDirNames,
-  setActiveKey
+  setDirNames
 } from '../redux/actions'
-const TabPane = Tabs.TabPane;
-
 
 
 class App extends Component {
@@ -31,35 +26,11 @@ class App extends Component {
 
 
 
-  handleTabClick = (key) => {
-    const selectedDir =  this.props.dirNames[key]
-    this.props.selectDir(selectedDir)
-    this.props.setActiveKey(key)
-  }
-
   render() {
-    const { dirNames, activeKey } = this.props
-    console.log('APP.js', activeKey)
     return (
       <div>
         <DirSetterContainer />
-
-        <Tabs
-          activeKey={activeKey}
-          tabPosition={'top'}
-          onTabClick={this.handleTabClick}
-        >
-          {
-            dirNames.map(
-              (t, i) => (
-                <TabPane tab={t} key={i}>
-                          <UploaderContainer />
-                          <FileTableContainer />
-                </TabPane>
-              )
-            )
-          }
-        </Tabs>
+        <TabsContainer />
       </div>
     )
   }
@@ -67,14 +38,12 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   selectedDir: state.selectedDir,
-  dirNames: state.dirNames,
-  activeKey: state.activeKey
+  dirNames: state.dirNames
 })
 
 export default connect(mapStateToProps,
   {
     selectDir,
     setDirNames,
-    setActiveKey,
     loadAllFiles
   })(App)
