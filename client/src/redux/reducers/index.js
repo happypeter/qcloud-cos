@@ -11,6 +11,7 @@ const rootReducer = (state=initState, action) => {
       const { allFiles } = action
       return {
         ...state,
+        selectedDir: state.dirNames[state.activeKey],
         allFiles
       }
     case 'REMOVE_FROM_ALL_FILES':
@@ -28,9 +29,9 @@ const rootReducer = (state=initState, action) => {
                ...state,
                selectedDir
              }
-    case 'LOAD_DIRNAMES':
+    case 'LOAD_DIR_NAMES':
        const { dirNames } = action
-       console.log('LOAD_DIRNAMES', dirNames)
+       console.log('LOAD_DIR_NAMES', dirNames)
        return {
          ...state,
          dirNames
