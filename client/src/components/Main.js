@@ -7,7 +7,7 @@ import Settings from '../settings'
 
 const MainWrap = styled.div`
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #00bcd4;
   display: flex;
   flex-direction: column;
 `

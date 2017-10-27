@@ -14,6 +14,7 @@ class Uploader extends Component {
       name: 'file',
       multiple: true,
       showUploadList: false,
+      action: '/empty', // FIXME: console 404 error
       onChange: this.props.onChange
     }
     return (
@@ -22,7 +23,7 @@ class Uploader extends Component {
           <p className="ant-upload-drag-icon">
             <Icon type="inbox" />
           </p>
-          <p className="ant-upload-text">拖拽到此区域上传</p>
+          <p className="ant-upload-text">点击或拖拽上传</p>
         </Dragger>
         {
           this.props.progressBars.map(
