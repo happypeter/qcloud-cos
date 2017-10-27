@@ -62,4 +62,15 @@ export const getSelectedDir = state => {
   return getTabDirNames(state)[state.activeKey]
 }
 
+export const getSelectedDirFiles = state => {
+  return state.allFiles.filter(
+    t => {
+      return t.Key.split('/')[0] === getSelectedDir(state)
+    }
+  )
+}
+
+export const getActiveKey = state => state.activeKey
+export const getNewDir = state => state.newDir
+
 export default rootReducer

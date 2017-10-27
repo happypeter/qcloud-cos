@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import './dir-setter.css'
 import { message } from 'antd'
-import { connect } from 'react-redux'
-import {
-  getSelectedDir
-} from '../redux/reducers'
+
 
 class DirSetter extends Component {
 
   state = {
     inputDir: ''
   }
-
 
   handleChange = (e) => {
     let inputDir = e.target.value
@@ -41,7 +37,9 @@ class DirSetter extends Component {
       <div className='dir-setter'>
         <input value={this.state.inputDir}
         onChange={this.handleChange} />
-        <button onClick={this.submitDir}>添加新文件夹</button>
+        <button onClick={this.submitDir}>
+          { !this.props.newDir ? '添加新文件夹' : '修改文件夹名' }
+        </button>
         <div className='input-requirement'>
         可用数字、中英文、下划线组合，最多20个字符
         </div>
@@ -50,8 +48,5 @@ class DirSetter extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  selectedDir: getSelectedDir(state)
-})
 
-export default connect(mapStateToProps)(DirSetter)
+export default DirSetter

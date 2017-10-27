@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import { setActiveKey } from '../redux/actions'
 import {
   getTabDirNames,
-  getSelectedDir
+  getSelectedDir,
+  getActiveKey
 } from '../redux/reducers'
 const TabPane = Tabs.TabPane;
 
@@ -19,7 +20,6 @@ class TabsContainer extends Component {
 
   render() {
     const { tabDirNames, activeKey } = this.props
-    console.log('APP.js', activeKey)
     return (
       <div>
         <Tabs
@@ -31,8 +31,8 @@ class TabsContainer extends Component {
             tabDirNames.map(
               (t, i) => (
                 <TabPane tab={t} key={i}>
-                          <UploaderContainer />
-                          <FileTableContainer />
+                    <UploaderContainer />
+                    <FileTableContainer />
                 </TabPane>
               )
             )
@@ -46,7 +46,7 @@ class TabsContainer extends Component {
 const mapStateToProps = (state) => ({
   selectedDir: getSelectedDir(state),
   tabDirNames: getTabDirNames(state),
-  activeKey: state.activeKey
+  activeKey: getActiveKey(state)
 })
 
 export default connect(mapStateToProps,

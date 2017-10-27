@@ -7,7 +7,6 @@ export const loadAllFiles = () => {
     axios.get(Settings.bucketUrl).then(
       res => {
         const allFiles = res.data.Contents
-        console.log('loadAllFiles++++allFiles', allFiles)
         dispatch({ type: 'LOAD_ALL_FILES', allFiles })
       }
     )

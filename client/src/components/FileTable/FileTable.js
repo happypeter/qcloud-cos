@@ -34,7 +34,7 @@ class FileTable extends Component {
       }
     },
     {
-      title: '更新时间',
+      title: '上传时间',
       dataIndex: 'LastModified',
       key: 'LastModified',
       render: (text) => {
@@ -54,12 +54,12 @@ class FileTable extends Component {
     }
   ]
   render () {
-    const { currentDirFiles } = this.props
+    const { selectedDirFiles } = this.props
 
     return (
       <div className='file-table'>
         <Table columns={this.tableColumns}
-          dataSource={currentDirFiles}
+          dataSource={selectedDirFiles}
           rowKey={item => item.ETag}
           />
       </div>

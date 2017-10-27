@@ -3,7 +3,8 @@ import DirSetter from '../components/DirSetter'
 import { setNewDir } from '../redux/actions'
 import { connect } from 'react-redux'
 import {
-  getTabDirNames
+  getTabDirNames,
+  getNewDir
 } from '../redux/reducers'
 
 class DirSetterContainer extends Component {
@@ -21,6 +22,7 @@ class DirSetterContainer extends Component {
     return (
       <div className='DirSetterContainer'>
         <DirSetter setNewDir={this.setNewDir}
+          newDir={this.props.newDir}
         />
       </div>
     )
@@ -28,7 +30,8 @@ class DirSetterContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tabDirNames: getTabDirNames(state)
+  tabDirNames: getTabDirNames(state),
+  newDir: getNewDir(state)
 })
 
 export default connect(mapStateToProps, { setNewDir })(DirSetterContainer)

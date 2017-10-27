@@ -13,7 +13,6 @@ class UploaderContainer extends Component {
   }
 
   onChange = (info) => {
-    console.log('onChange', info)
     if (info.file.status !== 'uploading') {
       const { selectedDir } = this.props
       if (!selectedDir) {

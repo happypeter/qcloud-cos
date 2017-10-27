@@ -5,7 +5,7 @@ import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
 import { removeFromAllFiles } from '../redux/actions'
 import {
-  getSelectedDir
+  getSelectedDirFiles
 } from '../redux/reducers'
 
 class FileTableContainer extends Component {
@@ -30,25 +30,18 @@ class FileTableContainer extends Component {
   }
 
   render () {
-    const { allFiles } = this.props
-    const currentDirFiles = allFiles.filter(
-      t => {
-        return t.Key.split('/')[0] === this.props.selectedDir
-      }
-    )
     return (
       <div>
         <FileTable
           onDelete={this.handleDelete}
-          currentDirFiles={currentDirFiles}/>
+          selectedDirFiles={this.props.selectedDirFiles}/>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: getSelectedDir(state),
-  allFiles: state.allFiles
+  selectedDirFiles: getSelectedDirFiles(state)
 })
 
 export default connect(mapStateToProps, {
