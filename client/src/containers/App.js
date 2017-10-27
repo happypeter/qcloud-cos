@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import TabsContainer from './TabsContainer'
-import DirSetterContainer from './DirSetterContainer'
 import { connect } from 'react-redux'
+import Main from '../components/Main'
 import {
   loadAllFiles
 } from '../redux/actions'
-
 
 
 class App extends Component {
@@ -17,8 +15,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <DirSetterContainer />
-        <TabsContainer />
+        <Main />
       </div>
     )
   }

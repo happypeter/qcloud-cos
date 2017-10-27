@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './dir-setter.css'
-import { message } from 'antd'
+import { message, Button, Input } from 'antd'
 
 class DirSetter extends Component {
   state = {
@@ -38,14 +38,12 @@ class DirSetter extends Component {
   render () {
     return (
       <div className='dir-setter'>
-        <input value={this.state.inputDir}
+        <Input value={this.state.inputDir}
         onChange={this.handleChange} />
-        <button onClick={this.submitDir}>
+        <Button type="primary"
+          onClick={this.submitDir}>
           { !this.props.newDir ? '添加新文件夹' : '修改文件夹名' }
-        </button>
-        <div className='input-requirement'>
-        可用数字、中英文、下划线组合，最多20个字符
-        </div>
+        </Button>
       </div>
     )
   }

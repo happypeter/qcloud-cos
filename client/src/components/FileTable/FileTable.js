@@ -26,11 +26,11 @@ class FileTable extends Component {
 
   tableColumns = [
     {
-      title: '名称',
+      title: '文件名',
       dataIndex: 'Key',
       key: 'Key',
       render: (text) => {
-        return <h1>{text.split('/').pop()}</h1>
+        return <span>{text.split('/').pop()}</span>
       }
     },
     {
@@ -61,6 +61,7 @@ class FileTable extends Component {
         <Table columns={this.tableColumns}
           dataSource={selectedDirFiles}
           rowKey={item => item.ETag}
+          pagination={false}
           />
       </div>
     )

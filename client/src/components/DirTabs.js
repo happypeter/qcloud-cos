@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
-import UploaderContainer from './UploaderContainer'
-import FileTableContainer from './FileTableContainer'
+import UploaderContainer from '../containers/UploaderContainer'
+import FileTableContainer from '../containers/FileTableContainer'
 import { Tabs } from 'antd';
-import { connect } from 'react-redux'
-import { setActiveKey } from '../redux/actions'
-import {
-  getTabDirNames,
-  getSelectedDir,
-  getActiveKey
-} from '../redux/reducers'
+import './dir-tabs.css'
 const TabPane = Tabs.TabPane;
 
 
-class TabsContainer extends Component {
+class DirTabs extends Component {
 
   handleTabClick = (key) => {
     this.props.setActiveKey(key)
@@ -21,7 +15,7 @@ class TabsContainer extends Component {
   render() {
     const { tabDirNames, activeKey } = this.props
     return (
-      <div>
+      <div className='dir-tabs'>
         <Tabs
           activeKey={activeKey}
           tabPosition={'top'}
@@ -31,8 +25,10 @@ class TabsContainer extends Component {
             tabDirNames.map(
               (t, i) => (
                 <TabPane tab={t} key={i}>
+                  <div className='tab-pane-inner'>
                     <UploaderContainer />
                     <FileTableContainer />
+                  </div>
                 </TabPane>
               )
             )
@@ -43,13 +39,5 @@ class TabsContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  selectedDir: getSelectedDir(state),
-  tabDirNames: getTabDirNames(state),
-  activeKey: getActiveKey(state)
-})
 
-export default connect(mapStateToProps,
-  {
-    setActiveKey
-  })(TabsContainer)
+export default DirTabs
