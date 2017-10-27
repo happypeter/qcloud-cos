@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 const DirSetterWrap = styled.div`
   display: flex;
-  padding: 20px;
 `
 
 class DirSetter extends Component {

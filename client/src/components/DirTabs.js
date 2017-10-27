@@ -11,10 +11,6 @@ const DirTabsWrap = styled.div`
   max-width: 95%;
 `
 
-const StyledTabPane = styled(TabPane)`
-  padding: 20px;
-`
-
 const Wrap = styled.div`
   margin-top: 20px;
 `
@@ -38,14 +34,14 @@ class DirTabs extends Component {
           {
             tabDirNames.map(
               (t, i) => (
-                <StyledTabPane tab={t} key={i}>
+                <TabPane tab={t} key={i}>
                   <Wrap>
                     <UploaderContainer />
                   </Wrap>
                   <Wrap>
                     <FileTableContainer />
                   </Wrap>
-                </StyledTabPane>
+                </TabPane>
               )
             )
           }
