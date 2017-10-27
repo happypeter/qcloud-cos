@@ -7,6 +7,9 @@ import {
   selectDir,
   setActiveKey
 } from '../redux/actions'
+import {
+  getDirNames
+} from '../redux/reducers'
 const TabPane = Tabs.TabPane;
 
 
@@ -46,7 +49,7 @@ class TabsContainer extends Component {
 
 const mapStateToProps = (state) => ({
   selectedDir: state.selectedDir,
-  dirNames: state.dirNames,
+  dirNames: getDirNames(state),
   activeKey: state.activeKey
 })
 

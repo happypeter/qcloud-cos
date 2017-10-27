@@ -8,14 +8,6 @@ export const selectDir = (selectedDir) => {
   }
 }
 
-const setDirNames = (contents, dispatch) => {
-  const dirNames = contents.reduce((arr, t) => {
-    const dirName = t.Key.split('/')[0]
-    if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
-    return arr
-  }, [])
-  dispatch({ type: 'LOAD_DIR_NAMES', dirNames })
-}
 
 export const loadAllFiles = () => {
   return dispatch => {
@@ -23,8 +15,6 @@ export const loadAllFiles = () => {
       res => {
         const allFiles = res.data.Contents
         console.log('loadAllFiles++++allFiles', allFiles)
-        // FIXME: action 中一个 action creator 中顺带呼叫另外一个，是这么玩吧？
-        setDirNames(allFiles, dispatch)
         dispatch({ type: 'LOAD_ALL_FILES', allFiles })
       }
     )

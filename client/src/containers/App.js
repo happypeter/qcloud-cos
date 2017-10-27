@@ -7,6 +7,7 @@ import {
 } from '../redux/actions'
 
 
+
 class App extends Component {
 
   componentDidMount () {
@@ -23,11 +24,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  dirNames: state.dirNames
-})
 
-export default connect(mapStateToProps,
+export default connect(null,
   {
     loadAllFiles
   })(App)

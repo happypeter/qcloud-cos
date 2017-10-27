@@ -29,13 +29,6 @@ const rootReducer = (state=initState, action) => {
                ...state,
                selectedDir
              }
-    case 'LOAD_DIR_NAMES':
-       const { dirNames } = action
-       console.log('LOAD_DIR_NAMES', dirNames)
-       return {
-         ...state,
-         dirNames
-       }
     case 'ADD_DIR_NAME':
       const { dirName } = action
       console.log('ADD_DIR_NAME', dirName)
@@ -55,6 +48,17 @@ const rootReducer = (state=initState, action) => {
     default:
       return state
   }
+}
+
+export const getDirNames = state => {
+  console.log('getDirNames()+++', state)
+  const dirNames = state.allFiles.reduce((arr, t) => {
+    const dirName = t.Key.split('/')[0]
+    if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
+    return arr
+  }, [])
+  console.log('getDirNames()---dirNames', dirNames)
+  return dirNames
 }
 
 export default rootReducer
