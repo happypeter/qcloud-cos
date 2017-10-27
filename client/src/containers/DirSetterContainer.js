@@ -9,24 +9,13 @@ import {
 
 class DirSetterContainer extends Component {
 
-  setNewDir = (dir) => {
-    const { tabDirNames } = this.props
-    return new Promise(
-      (resolve, reject) => {
-        if (tabDirNames.indexOf(dir) === -1) {
-          this.props.setNewDir(dir)
-        } else {
-          reject('文件夹已经存在')
-        }
-      }
-    )
-  }
-
   render () {
+    const { tabDirNames, setNewDir } = this.props
     return (
       <div className='DirSetterContainer'>
-        <DirSetter setNewDir={this.setNewDir}
+        <DirSetter setNewDir={setNewDir}
           newDir={this.props.newDir}
+          tabDirNames={tabDirNames}
         />
       </div>
     )

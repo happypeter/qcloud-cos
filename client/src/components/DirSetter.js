@@ -20,14 +20,15 @@ class DirSetter extends Component {
     const dir = inputDir.trim()
     const parseName = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
     if (parseName.test(dir)) {
-      this.props.setNewDir(dir).catch(
-        err => {
-          message.error(err)
-        }
-      )
-      this.setState({
-        inputDir: ''
-      })
+      if (this.props.tabDirNames.indexOf(dir) === -1) {
+        this.props.setNewDir(dir)
+        message.success('文件夹创建成功')
+        this.setState({
+          inputDir: ''
+        })
+      } else {
+        message.error('文件夹已经存在')
+      }
     }
     else {
       message.error('仅支持数字、中英文、下划线')
