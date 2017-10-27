@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import './dir-setter.css'
 import { message, Button, Input } from 'antd'
+import styled from 'styled-components'
+
+const DirSetterWrap = styled.div`
+  display: flex;
+  padding: 20px;
+`
 
 class DirSetter extends Component {
   state = {
@@ -37,14 +42,14 @@ class DirSetter extends Component {
 
   render () {
     return (
-      <div className='dir-setter'>
+      <DirSetterWrap>
         <Input value={this.state.inputDir}
         onChange={this.handleChange} />
         <Button type="primary"
           onClick={this.submitDir}>
           { !this.props.newDir ? '添加新文件夹' : '修改文件夹名' }
         </Button>
-      </div>
+      </DirSetterWrap>
     )
   }
 }

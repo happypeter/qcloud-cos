@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import FileTable from '../components/FileTable/FileTable'
+import FileTable from '../components/FileTable'
 import Settings from '../settings'
 import cos from '../lib/qcloud'
 import { connect } from 'react-redux'

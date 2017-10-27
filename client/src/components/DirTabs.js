@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import UploaderContainer from '../containers/UploaderContainer'
 import FileTableContainer from '../containers/FileTableContainer'
-import { Tabs } from 'antd';
-import './dir-tabs.css'
+import { Tabs } from 'antd'
+import styled from 'styled-components'
 const TabPane = Tabs.TabPane;
+
+
+const DirTabsWrap = styled.div`
+  margin: 20px auto;
+  max-width: 95%;
+`
+
+const StyledTabPane = styled(TabPane)`
+  padding: 20px;
+`
+
+const Wrap = styled.div`
+  margin-top: 20px;
+`
 
 
 class DirTabs extends Component {
@@ -15,7 +29,7 @@ class DirTabs extends Component {
   render() {
     const { tabDirNames, activeKey } = this.props
     return (
-      <div className='dir-tabs'>
+      <DirTabsWrap>
         <Tabs
           activeKey={activeKey}
           tabPosition={'top'}
@@ -24,17 +38,19 @@ class DirTabs extends Component {
           {
             tabDirNames.map(
               (t, i) => (
-                <TabPane tab={t} key={i}>
-                  <div className='tab-pane-inner'>
+                <StyledTabPane tab={t} key={i}>
+                  <Wrap>
                     <UploaderContainer />
+                  </Wrap>
+                  <Wrap>
                     <FileTableContainer />
-                  </div>
-                </TabPane>
+                  </Wrap>
+                </StyledTabPane>
               )
             )
           }
         </Tabs>
-      </div>
+      </DirTabsWrap>
     )
   }
 }

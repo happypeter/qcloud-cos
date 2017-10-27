@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Upload, Icon, Progress } from 'antd'
+import styled from 'styled-components'
 const Dragger = Upload.Dragger
 
+const UploaderWrap = styled.div`
+  padding: 10px;
+`
 
 class Uploader extends Component {
 
@@ -13,7 +17,7 @@ class Uploader extends Component {
       onChange: this.props.onChange
     }
     return (
-      <div>
+      <UploaderWrap>
         <Dragger {...params}>
           <p className="ant-upload-drag-icon">
             <Icon type="inbox" />
@@ -32,7 +36,7 @@ class Uploader extends Component {
             }
           )
         }
-      </div>
+      </UploaderWrap>
     )
   }
 }
