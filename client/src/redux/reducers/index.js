@@ -30,7 +30,6 @@ const rootReducer = (state=initState, action) => {
       }
     case 'SET_ACTIVE_KEY':
       const { activeKey } = action
-      console.log('SET_ACTIVE_KEY', activeKey)
       return {
         ...state,
         activeKey

@@ -23,7 +23,6 @@ export const removeFromAllFiles = (key) => {
   }
 }
 
-
 export const setNewDir = (newDir) => {
   return dispatch => {
     dispatch({
