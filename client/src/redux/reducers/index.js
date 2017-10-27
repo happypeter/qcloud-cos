@@ -13,10 +13,11 @@ const rootReducer = (state=initState, action) => {
         allFiles,
         newDir: '' //清空一下有必要
       }
-    case 'REMOVE_FROM_ALL_FILES':
+    case 'REMOVE_FILE':
       newAllFiles = state.allFiles.filter(
         t => t.Key !== action.key
       )
+      // FIXME: need to change activeKey if it's the last file in dir
       return {
         ...state,
         allFiles: newAllFiles

@@ -13,10 +13,10 @@ export const loadAllFiles = () => {
   }
 }
 
-export const removeFromAllFiles = (key) => {
+export const removeFile = (key) => {
   return dispatch => {
     dispatch({
-      type: 'REMOVE_FROM_ALL_FILES',
+      type: 'REMOVE_FILE',
       key
     })
   }

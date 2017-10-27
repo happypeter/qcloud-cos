@@ -11,11 +11,15 @@ class DirSetterContainer extends Component {
 
   setNewDir = (dir) => {
     const { tabDirNames } = this.props
-    if (tabDirNames.indexOf(dir) === -1) {
-      this.props.setNewDir(dir)
-    } else {
-      console.log('文件夹已经存在！')
-    }
+    return new Promise(
+      (resolve, reject) => {
+        if (tabDirNames.indexOf(dir) === -1) {
+          this.props.setNewDir(dir)
+        } else {
+          reject('文件夹已经存在')
+        }
+      }
+    )
   }
 
   render () {

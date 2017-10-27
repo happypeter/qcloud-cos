@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import './dir-setter.css'
 import { message } from 'antd'
 
-
 class DirSetter extends Component {
-
   state = {
     inputDir: ''
   }
@@ -22,7 +20,11 @@ class DirSetter extends Component {
     const dir = inputDir.trim()
     const parseName = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
     if (parseName.test(dir)) {
-      this.props.setNewDir(dir)
+      this.props.setNewDir(dir).catch(
+        err => {
+          message.error(err)
+        }
+      )
       this.setState({
         inputDir: ''
       })

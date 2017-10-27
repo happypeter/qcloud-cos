@@ -3,7 +3,7 @@ import FileTable from '../components/FileTable/FileTable'
 import Settings from '../settings'
 import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
-import { removeFromAllFiles } from '../redux/actions'
+import { removeFile } from '../redux/actions'
 import {
   getSelectedDirFiles
 } from '../redux/reducers'
@@ -21,7 +21,7 @@ class FileTableContainer extends Component {
           if(err) {
             reject(record.Key)
           } else {
-            this.props.removeFromAllFiles(record.Key)
+            this.props.removeFile(record.Key)
             resolve(record.Key)
            }
          })
@@ -45,6 +45,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  removeFromAllFiles
+  removeFile
 }
 )(FileTableContainer)
