@@ -32,7 +32,8 @@ class DirSetter extends Component {
     const parseName = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
     if (parseName.test(dir)) {
       this.props.selectDir(dir)
-      this.props.appendDirName(dir)
+      // this.props.appendDirName(dir)
+      this.props.setNewDir(dir)
       this.setState({
         inputDir: ''
       })

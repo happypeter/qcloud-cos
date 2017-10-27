@@ -8,7 +8,7 @@ import {
   setActiveKey
 } from '../redux/actions'
 import {
-  getDirNames
+  getTabDirNames
 } from '../redux/reducers'
 const TabPane = Tabs.TabPane;
 
@@ -22,7 +22,7 @@ class TabsContainer extends Component {
   }
 
   render() {
-    const { dirNames, activeKey } = this.props
+    const { tabDirNames, activeKey } = this.props
     console.log('APP.js', activeKey)
     return (
       <div>
@@ -32,7 +32,7 @@ class TabsContainer extends Component {
           onTabClick={this.handleTabClick}
         >
           {
-            dirNames.map(
+            tabDirNames.map(
               (t, i) => (
                 <TabPane tab={t} key={i}>
                           <UploaderContainer />
@@ -49,7 +49,7 @@ class TabsContainer extends Component {
 
 const mapStateToProps = (state) => ({
   selectedDir: state.selectedDir,
-  dirNames: getDirNames(state),
+  tabDirNames: getTabDirNames(state),
   activeKey: state.activeKey
 })
 

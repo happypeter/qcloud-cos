@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import DirSetter from '../components/DirSetter'
-import { addDirName } from '../redux/actions'
+import { setNewDir } from '../redux/actions'
 import { connect } from 'react-redux'
+import {
+  getTabDirNames
+} from '../redux/reducers'
 
 class DirSetterContainer extends Component {
 
-  appendDirName = (dirName) => {
-    const { dirNames } = this.props
-    if (dirNames.indexOf(dirName) === -1) {
-      this.props.addDirName(dirName)
+  setNewDir = (dir) => {
+    const { tabDirNames } = this.props
+    if (tabDirNames.indexOf(dir) === -1) {
+      this.props.setNewDir(dir)
     } else {
       console.log('文件夹已经存在！')
     }
@@ -17,7 +20,7 @@ class DirSetterContainer extends Component {
   render () {
     return (
       <div className='DirSetterContainer'>
-        <DirSetter appendDirName={this.appendDirName}
+        <DirSetter setNewDir={this.setNewDir}
         />
       </div>
     )
@@ -25,9 +28,7 @@ class DirSetterContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  dirNames: state.dirNames
+  tabDirNames: getTabDirNames(state)
 })
 
-export default connect(mapStateToProps, {
-  addDirName
-})(DirSetterContainer)
+export default connect(mapStateToProps, { setNewDir })(DirSetterContainer)

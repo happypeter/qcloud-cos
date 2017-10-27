@@ -31,11 +31,11 @@ export const removeFromAllFiles = (key) => {
 }
 
 
-export const addDirName = (dirName) => {
+export const setNewDir = (newDir) => {
   return dispatch => {
     dispatch({
-      type: 'ADD_DIR_NAME',
-      dirName
+      type: 'SET_NEW_DIR',
+      newDir
     })
   }
 }

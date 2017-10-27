@@ -1,6 +1,7 @@
 const initState = {
   selectedDir: '',
   dirNames: [],
+  newDir: '',
   activeKey: '0',
   allFiles: []
 }
@@ -29,14 +30,20 @@ const rootReducer = (state=initState, action) => {
                ...state,
                selectedDir
              }
-    case 'ADD_DIR_NAME':
-      const { dirName } = action
-      console.log('ADD_DIR_NAME', dirName)
+    // case 'ADD_DIR_NAME':
+    //   const { dirName } = action
+    //   console.log('ADD_DIR_NAME', dirName)
+    //   return {
+    //     ...state,
+    //     dirNames: [...state.dirNames, dirName],
+    //     selectedDir: dirName,
+    //     activeKey: state.dirNames.length.toString()
+    //   }
+    case 'SET_NEW_DIR':
+      const { newDir } = action
       return {
         ...state,
-        dirNames: [...state.dirNames, dirName],
-        selectedDir: dirName,
-        activeKey: state.dirNames.length.toString()
+        newDir
       }
     case 'SET_ACTIVE_KEY':
       const { activeKey } = action
@@ -59,6 +66,16 @@ export const getDirNames = state => {
   }, [])
   console.log('getDirNames()---dirNames', dirNames)
   return dirNames
+}
+
+export const getTabDirNames = state => {
+  if (state.newDir) {
+    return [
+      ...getDirNames(state),
+      state.newDir
+    ]
+  }
+  return getDirNames(state)
 }
 
 export default rootReducer
