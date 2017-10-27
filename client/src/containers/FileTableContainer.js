@@ -4,6 +4,9 @@ import Settings from '../settings'
 import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
 import { removeFromAllFiles } from '../redux/actions'
+import {
+  getSelectedDir
+} from '../redux/reducers'
 
 class FileTableContainer extends Component {
   handleDelete = (record) => {
@@ -44,7 +47,7 @@ class FileTableContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir,
+  selectedDir: getSelectedDir(state),
   allFiles: state.allFiles
 })
 

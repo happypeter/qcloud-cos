@@ -5,6 +5,9 @@ import Uploader from '../components/Uploader'
 import Settings from '../settings'
 import { connect } from 'react-redux'
 import { loadAllFiles } from '../redux/actions'
+import {
+  getSelectedDir
+} from '../redux/reducers'
 
 class UploaderContainer extends Component {
   state = {
@@ -80,7 +83,7 @@ class UploaderContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir
+  selectedDir: getSelectedDir(state)
 })
 
 export default connect(mapStateToProps, {

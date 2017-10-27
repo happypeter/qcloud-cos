@@ -1,6 +1,4 @@
 const initState = {
-  selectedDir: '',
-  dirNames: [],
   newDir: '',
   activeKey: '0',
   allFiles: []
@@ -12,8 +10,8 @@ const rootReducer = (state=initState, action) => {
       const { allFiles } = action
       return {
         ...state,
-        selectedDir: state.dirNames[state.activeKey],
-        allFiles
+        allFiles,
+        newDir: '' //清空一下有必要
       }
     case 'REMOVE_FROM_ALL_FILES':
       newAllFiles = state.allFiles.filter(
@@ -23,26 +21,11 @@ const rootReducer = (state=initState, action) => {
         ...state,
         allFiles: newAllFiles
       }
-    case 'SELETCT_DIR':
-      const { selectedDir } = action
-      console.log('selectedDir', selectedDir)
-      return {
-               ...state,
-               selectedDir
-             }
-    // case 'ADD_DIR_NAME':
-    //   const { dirName } = action
-    //   console.log('ADD_DIR_NAME', dirName)
-    //   return {
-    //     ...state,
-    //     dirNames: [...state.dirNames, dirName],
-    //     selectedDir: dirName,
-    //     activeKey: state.dirNames.length.toString()
-    //   }
     case 'SET_NEW_DIR':
       const { newDir } = action
       return {
         ...state,
+        activeKey: getDirNames(state).length.toString(),
         newDir
       }
     case 'SET_ACTIVE_KEY':
@@ -58,13 +41,11 @@ const rootReducer = (state=initState, action) => {
 }
 
 export const getDirNames = state => {
-  console.log('getDirNames()+++', state)
   const dirNames = state.allFiles.reduce((arr, t) => {
     const dirName = t.Key.split('/')[0]
     if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
     return arr
   }, [])
-  console.log('getDirNames()---dirNames', dirNames)
   return dirNames
 }
 
@@ -76,6 +57,10 @@ export const getTabDirNames = state => {
     ]
   }
   return getDirNames(state)
+}
+
+export const getSelectedDir = state => {
+  return getTabDirNames(state)[state.activeKey]
 }
 
 export default rootReducer

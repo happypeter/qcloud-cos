@@ -3,12 +3,10 @@ import UploaderContainer from './UploaderContainer'
 import FileTableContainer from './FileTableContainer'
 import { Tabs } from 'antd';
 import { connect } from 'react-redux'
+import { setActiveKey } from '../redux/actions'
 import {
-  selectDir,
-  setActiveKey
-} from '../redux/actions'
-import {
-  getTabDirNames
+  getTabDirNames,
+  getSelectedDir
 } from '../redux/reducers'
 const TabPane = Tabs.TabPane;
 
@@ -16,8 +14,6 @@ const TabPane = Tabs.TabPane;
 class TabsContainer extends Component {
 
   handleTabClick = (key) => {
-    const selectedDir =  this.props.dirNames[key]
-    this.props.selectDir(selectedDir)
     this.props.setActiveKey(key)
   }
 
@@ -48,13 +44,12 @@ class TabsContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir,
+  selectedDir: getSelectedDir(state),
   tabDirNames: getTabDirNames(state),
   activeKey: state.activeKey
 })
 
 export default connect(mapStateToProps,
   {
-    selectDir,
     setActiveKey
   })(TabsContainer)

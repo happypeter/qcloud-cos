@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import './dir-setter.css'
 import { message } from 'antd'
 import { connect } from 'react-redux'
-import { selectDir } from '../redux/actions'
+import {
+  getSelectedDir
+} from '../redux/reducers'
 
 class DirSetter extends Component {
 
@@ -10,13 +12,6 @@ class DirSetter extends Component {
     inputDir: ''
   }
 
-  handleClick = (selectedDir) => {
-    // this.props.selectDir(dirName)
-    // this.setState({
-    //   selectedDir: dirName
-    // })
-    this.props.selectDir(selectedDir)
-  }
 
   handleChange = (e) => {
     let inputDir = e.target.value
@@ -31,7 +26,6 @@ class DirSetter extends Component {
     const dir = inputDir.trim()
     const parseName = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
     if (parseName.test(dir)) {
-      this.props.selectDir(dir)
       // this.props.appendDirName(dir)
       this.props.setNewDir(dir)
       this.setState({
@@ -58,7 +52,7 @@ class DirSetter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedDir: state.selectedDir
+  selectedDir: getSelectedDir(state)
 })
 
-export default connect(mapStateToProps, { selectDir })(DirSetter)
+export default connect(mapStateToProps)(DirSetter)
