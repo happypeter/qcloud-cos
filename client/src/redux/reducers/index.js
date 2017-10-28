@@ -21,7 +21,6 @@ const rootReducer = (state=initState, action) => {
       const newAllFiles = state.allFiles.filter(
         t => t.Key !== action.key
       )
-
       return {
         ...state,
         allFiles: newAllFiles,
@@ -57,7 +56,6 @@ const getDirNames = allFiles => {
 const isLastFile = (filePath, newAllFiles) => {
   const dirName = filePath.split('/')[0]
   const isLastFile = !getDirNames(newAllFiles).includes(dirName)
-  console.log('isLastFile', isLastFile)
   return isLastFile
 }
 
@@ -85,5 +83,6 @@ export const getSelectedDirFiles = state => {
 
 export const getActiveKey = state => state.activeKey
 export const getNewDir = state => state.newDir
+export const getAllFiles = state => state.allFiles
 
 export default rootReducer
