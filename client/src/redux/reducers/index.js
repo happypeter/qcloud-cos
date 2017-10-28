@@ -21,10 +21,11 @@ const rootReducer = (state=initState, action) => {
       const newAllFiles = state.allFiles.filter(
         t => t.Key !== action.key
       )
+
       return {
         ...state,
         allFiles: newAllFiles,
-        newDir: isLastFile(action.key, newAllFiles) ? action.key.split('/')[0] : state.newDir
+        activeKey: isLastFile(action.key, newAllFiles) ? '0' : state.activeKey
       }
     case 'SET_NEW_DIR':
       const { newDir } = action
