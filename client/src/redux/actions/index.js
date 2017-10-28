@@ -1,5 +1,7 @@
 import Settings from '../../settings'
 import axios from 'axios'
+import cos from '../../lib/qcloud'
+
 
 
 export const loadAllFiles = () => {
@@ -26,12 +28,27 @@ export const addFile = (filePath) => {
   }
 }
 
-export const removeFile = (key) => {
+export const removeFile = (record) => {
+  const delParams = {
+    Bucket: Settings.Bucket,
+    Region: Settings.Region,
+    Key : record.Key
+  }
+  const key = record.Key
+
   return dispatch => {
-    dispatch({
-      type: 'REMOVE_FILE',
-      key
-    })
+    return new Promise(
+      (resolve, reject) => {
+        cos.deleteObject(delParams, (err, data) => {
+          if(err) {
+            reject(key)
+          } else {
+            dispatch({ type: 'REMOVE_FILE', key })
+            resolve(key)
+          }
+        })
+      }
+    )
   }
 }
 

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import FileTable from '../components/FileTable'
-import Settings from '../settings'
-import cos from '../lib/qcloud'
 import { connect } from 'react-redux'
 import { removeFile } from '../redux/actions'
 import {
@@ -9,25 +7,8 @@ import {
 } from '../redux/reducers'
 
 class FileTableContainer extends Component {
-  handleDelete = (record) => {
-    const delParams = {
-      Bucket: Settings.Bucket,
-      Region: Settings.Region,
-      Key : record.Key
-    }
-    return new Promise(
-      (resolve, reject) => {
-        cos.deleteObject(delParams, (err, data) => {
-          if(err) {
-            reject(record.Key)
-          } else {
-            this.props.removeFile(record.Key)
-            resolve(record.Key)
-          }
-        })
-      }
-    )
-  }
+
+  handleDelete = (record) => this.props.removeFile(record)
 
   render () {
     return (
