@@ -23,8 +23,8 @@ class FileTableContainer extends Component {
           } else {
             this.props.removeFile(record.Key)
             resolve(record.Key)
-           }
-         })
+          }
+        })
       }
     )
   }

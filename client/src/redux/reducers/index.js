@@ -3,6 +3,7 @@ const initState = {
   activeKey: '0',
   allFiles: []
 }
+
 const rootReducer = (state=initState, action) => {
   let newAllFiles
   switch (action.type) {
@@ -17,16 +18,16 @@ const rootReducer = (state=initState, action) => {
       newAllFiles = state.allFiles.filter(
         t => t.Key !== action.key
       )
-      // FIXME: need to change activeKey if it's the last file in dir
       return {
         ...state,
-        allFiles: newAllFiles
+        allFiles: newAllFiles,
+        newDir: isLastFile(action.key, newAllFiles) ? action.key.split('/')[0] : state.newDir
       }
     case 'SET_NEW_DIR':
       const { newDir } = action
       return {
         ...state,
-        activeKey: getDirNames(state).length.toString(),
+        activeKey: getDirNames(state.allFiles).length.toString(),
         newDir
       }
     case 'SET_ACTIVE_KEY':
@@ -40,8 +41,8 @@ const rootReducer = (state=initState, action) => {
   }
 }
 
-export const getDirNames = state => {
-  const dirNames = state.allFiles.reduce((arr, t) => {
+const getDirNames = allFiles => {
+  const dirNames = allFiles.reduce((arr, t) => {
     const dirName = t.Key.split('/')[0]
     if (arr.indexOf(dirName) === -1) { arr.push(dirName)}
     return arr
@@ -49,14 +50,21 @@ export const getDirNames = state => {
   return dirNames
 }
 
+const isLastFile = (filePath, newAllFiles) => {
+  const dirName = filePath.split('/')[0]
+  const isLastFile = !getDirNames(newAllFiles).includes(dirName)
+  console.log('isLastFile', isLastFile)
+  return isLastFile
+}
+
 export const getTabDirNames = state => {
   if (state.newDir) {
     return [
-      ...getDirNames(state),
+      ...getDirNames(state.allFiles),
       state.newDir
     ]
   }
-  return getDirNames(state)
+  return getDirNames(state.allFiles)
 }
 
 export const getSelectedDir = state => {

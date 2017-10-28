@@ -15,7 +15,6 @@ const Wrap = styled.div`
   margin-top: 20px;
 `
 
-
 class DirTabs extends Component {
 
   handleTabClick = (key) => {

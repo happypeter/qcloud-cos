@@ -14,7 +14,7 @@ class Uploader extends Component {
       name: 'file',
       multiple: true,
       showUploadList: false,
-      action: '/empty', // FIXME: console 404 error
+      action: 'http://devnull-as-a-service.com/dev/null', // 不需要发请求，直接进入 onChange 进行上传
       onChange: this.props.onChange
     }
     return (
