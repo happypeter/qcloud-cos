@@ -13,6 +13,19 @@ export const loadAllFiles = () => {
   }
 }
 
+export const addFile = (filePath) => {
+  return dispatch => {
+    axios.get(Settings.bucketUrl).then(
+      res => {
+        const newFile = res.data.Contents.find(
+          t => t.Key === filePath
+        )
+        dispatch({ type: 'ADD_FILE', newFile })
+      }
+    )
+  }
+}
+
 export const removeFile = (key) => {
   return dispatch => {
     dispatch({

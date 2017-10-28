@@ -8,11 +8,15 @@ const rootReducer = (state=initState, action) => {
   let newAllFiles
   switch (action.type) {
     case 'LOAD_ALL_FILES':
-      const { allFiles } = action
       return {
         ...state,
-        allFiles,
-        newDir: '' //清空一下有必要
+        allFiles: action.allFiles
+      }
+    case 'ADD_FILE':
+      return {
+        ...state,
+        allFiles: [...state.allFiles, action.newFile],
+        newDir: ''
       }
     case 'REMOVE_FILE':
       newAllFiles = state.allFiles.filter(

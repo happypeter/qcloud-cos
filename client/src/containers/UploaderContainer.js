@@ -4,7 +4,7 @@ import { message } from 'antd'
 import Uploader from '../components/Uploader'
 import Settings from '../settings'
 import { connect } from 'react-redux'
-import { loadAllFiles } from '../redux/actions'
+import { addFile } from '../redux/actions'
 import { getSelectedDir } from '../redux/reducers'
 
 class UploaderContainer extends Component {
@@ -64,7 +64,7 @@ class UploaderContainer extends Component {
           message.info(`${file.name} 上传失败`)
         } else {
           message.success(`${file.name} 成功上传`)
-          this.props.loadAllFiles()
+          this.props.addFile(key)
         }
       })
     }
@@ -84,5 +84,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  loadAllFiles
+  addFile
 })(UploaderContainer)
