@@ -4,8 +4,8 @@ const config = {
   SecretKey: 'WqNahcVDj2CG7mF4mqnY7TecOyO5Obdj',
   // Bucket: 'haoqicat',
   // Region: 'ap-beijing-1'
-  Bucket: 'hq123',
-  Region: 'ap-chengdu'
+  Bucket: 'catgo',
+  Region: 'ap-beijing'
 }
 
 module.exports = config

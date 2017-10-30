@@ -52,14 +52,10 @@ export const removeFile = (record) => {
   }
 }
 
-export const setNewDir = (newDir) => {
-  return dispatch => {
-    dispatch({
-      type: 'SET_NEW_DIR',
-      newDir
-    })
-  }
-}
+export const setNewDir = (newDir) => ({
+  type: 'SET_NEW_DIR',
+  newDir
+})
 
 export const setActiveKey = (activeKey) => {
   return dispatch => {

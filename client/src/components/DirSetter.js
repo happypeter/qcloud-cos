@@ -25,7 +25,7 @@ class DirSetter extends Component {
     const parseName = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
     if (parseName.test(dir)) {
       if (this.props.tabDirNames.indexOf(dir) === -1) {
-        this.props.setNewDir(dir)
+        this.props.onAddNewDir(dir)
         message.success('文件夹创建成功')
         this.setState({
           inputDir: ''

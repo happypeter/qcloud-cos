@@ -9,11 +9,15 @@ import {
 
 class DirSetterContainer extends Component {
 
+  addNewDir = (dir) => {
+    this.props.dispatch(setNewDir(dir))
+  }
+
   render () {
-    const { tabDirNames, setNewDir } = this.props
+    const { tabDirNames } = this.props
     return (
       <div className='DirSetterContainer'>
-        <DirSetter setNewDir={setNewDir}
+        <DirSetter onAddNewDir={this.addNewDir}
           newDir={this.props.newDir}
           tabDirNames={tabDirNames}
         />
@@ -27,4 +31,4 @@ const mapStateToProps = state => ({
   newDir: getNewDir(state)
 })
 
-export default connect(mapStateToProps, { setNewDir })(DirSetterContainer)
+export default connect(mapStateToProps)(DirSetterContainer)

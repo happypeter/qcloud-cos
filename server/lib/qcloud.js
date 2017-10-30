@@ -13,7 +13,6 @@ exports.getBucket = (req, res) => {
   })
 }
 
-
 exports.auth = (req, res) => {
   // console.log(req.body.method);
   // console.log(req.body.pathname);
